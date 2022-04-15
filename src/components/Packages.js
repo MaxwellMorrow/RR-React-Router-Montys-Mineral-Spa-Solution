@@ -1,11 +1,10 @@
+import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 
 export default function Packages(props) {
-  const displayPackages = props.packages.map((eachPackage) => (
-    <ListGroup.Item>{eachPackage}</ListGroup.Item>
-  ));
+  const [activeItem, setActiveItem] = useState(props.packages[0]);
 
   return (
     <Container>
@@ -17,7 +16,17 @@ export default function Packages(props) {
             and organic!
           </Card.Text>
         </Card.Body>
-        <ListGroup>{displayPackages}</ListGroup>
+        <ListGroup>
+          {props.packages.map((eachPackage, index) => (
+            <ListGroup.Item
+              key={index}
+              active={eachPackage === activeItem}
+              onClick={() => setActiveItem(eachPackage)}
+            >
+              {eachPackage}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
       </Card>
     </Container>
   );
